@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../Components/Layout'
-import { DatePicker } from 'antd'
+import { DatePicker, message } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { hideLoading, showLoading } from "../redux/features/alertSlice"
 function AppointmentPage() {
+  const { user } = useSelector(state => state.user)
   const params = useParams()
   const [doctors, setDoctors] = useState([])
   const [date, setDate] = useState()
   const [available, setAvailable] = useState()
+
+  const dispatch = useDispatch()
   const getUserData = async () => {
     try {
       const res = await axios.post('/api/v1/doctor/getADoctor', { doctorId: params.doctorId }, {
@@ -24,9 +29,36 @@ function AppointmentPage() {
       console.log(error);
     }
   }
+  const handleBooking = async () => {
+    try {
+      dispatch(showLoading())
+      const res = await axios.post("/api/v1/user/book-appointment",
+        {
+          doctorId: params.doctorId,
+          userId: user._id,
+          doctorInfo: doctors,
+          userInfo: user,
+          date: date
+        },{
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+        
+        )
+        dispatch(hideLoading())
+        if(res.data.success){
+          message.success(res.data.message)
+        }
+    } catch (error) {
+      dispatch(hideLoading())
+      console.log(error)
+    }
+  }
   useEffect(() => {
     getUserData()
   }, [])
+
   return (
     <Layout>
       <h3 className='text-center'>Appointment Page</h3>
@@ -37,8 +69,9 @@ function AppointmentPage() {
               <h4>Dr {doctors.firstName} {doctors.lastName} </h4>
               <h4>Fees {doctors.fees}</h4>
               <div className="d-flex flex-column w-50">
-                <DatePicker format="DD-MM-YYYY" onChange={(e)=>setDate(moment(e).format("DD-MM-YYYY"))}></DatePicker>
+                <DatePicker format="DD-MM-YYYY" onChange={(e) => setDate(moment(e).format("DD-MM-YYYY"))}></DatePicker>
                 <div className="btn bg-primary text-white mt-2">Check availability</div>
+                <div className="btn bg-dark text-white mt-2" onClick={handleBooking}>Book now</div>
               </div>
             </div>
           )
