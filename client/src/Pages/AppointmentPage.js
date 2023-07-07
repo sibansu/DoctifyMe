@@ -11,7 +11,7 @@ function AppointmentPage() {
   const params = useParams()
   const [doctors, setDoctors] = useState([])
   const [date, setDate] = useState()
-  const [available, setAvailable] = useState()
+  const [available, setAvailable] = useState(false)
 
   const dispatch = useDispatch()
   const getUserData = async () => {
@@ -31,6 +31,10 @@ function AppointmentPage() {
   }
   const handleBooking = async () => {
     try {
+      setAvailable(true);
+      if(!date){
+        return alert("Date is required")
+      }
       dispatch(showLoading())
       const res = await axios.post("/api/v1/user/book-appointment",
         {
@@ -48,6 +52,7 @@ function AppointmentPage() {
         )
         dispatch(hideLoading())
         if(res.data.success){
+          setAvailable(true)
           message.success(res.data.message)
         }
     } catch (error) {
@@ -55,6 +60,31 @@ function AppointmentPage() {
       console.log(error)
     }
   }
+
+  const handleAvailabiliy = async()=>{
+    try {
+      dispatch(showLoading())
+      const res = await axios.post('/api/v1/user/booking-availability',
+      {doctorId:params.doctorId,
+      date},
+      {
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      dispatch(hideLoading())
+      if(res.data.success){
+        setAvailable(true)
+        message.success(res.data.message)
+      }else{
+        message.error(res.data.message)
+      }
+    } catch (error) {
+      dispatch(hideLoading())
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     getUserData()
   }, [])
@@ -69,9 +99,10 @@ function AppointmentPage() {
               <h4>Dr {doctors.firstName} {doctors.lastName} </h4>
               <h4>Fees {doctors.fees}</h4>
               <div className="d-flex flex-column w-50">
-                <DatePicker format="DD-MM-YYYY" onChange={(e) => setDate(moment(e).format("DD-MM-YYYY"))}></DatePicker>
-                <div className="btn bg-primary text-white mt-2">Check availability</div>
-                <div className="btn bg-dark text-white mt-2" onClick={handleBooking}>Book now</div>
+                <DatePicker format="DD-MM-YYYY" onChange={(e) =>{setDate(moment(e).format("DD-MM-YYYY")); setAvailable(true);}}></DatePicker>
+                {/* <div className="btn bg-primary text-white mt-2" onClick={handleAvailabiliy}>Check availability</div> */}
+
+                {<div className="btn bg-success text-white mt-2" onClick={handleBooking}>Book now</div>}
               </div>
             </div>
           )

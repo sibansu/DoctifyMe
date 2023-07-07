@@ -13,6 +13,7 @@ import Users from './Pages/admin/Users';
 import Doctors from './Pages/admin/Doctors';
 import Profile from './Pages/Doctor/Profile';
 import AppointmentPage from './Pages/AppointmentPage';
+import Appointments from './Pages/Appointments';
 function App() {
   const { loading } = useSelector(state => state.alerts)
   return (
@@ -54,6 +55,12 @@ function App() {
               {
                 <ProtectedRoute>
                   <AppointmentPage></AppointmentPage>
+                </ProtectedRoute>
+              }></Route>
+            <Route path='/appointments' exact element=
+              {
+                <ProtectedRoute>
+                  <Appointments></Appointments>
                 </ProtectedRoute>
               }></Route>
             <Route path='/admin/doctors' exact element=

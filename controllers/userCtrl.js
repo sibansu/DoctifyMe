@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const doctorModel = require('../models/doctorModel')
 const appointmentModel = require('../models/appointmentMode')
 // import doctorModel from '../models/doctorModel'
-
+const moment = require("moment")
 const registerController = async (req, res) => {
     try {
         const existing = await userModel.findOne({ email: req.body.email })
@@ -167,6 +167,7 @@ const getAllDoctorsController = async(req, res)=>{
 
 const bookAppointmentController = async(req,res)=>{
     try {
+        req.body.date = moment(req.body.date,"DD-MM-YYYY").toISOString()
         req.body.status = "Pending"
         const newAppointment = new appointmentModel(req.body)
         await newAppointment.save()
@@ -191,4 +192,49 @@ const bookAppointmentController = async(req,res)=>{
         })
     }
 }
-module.exports = {bookAppointmentController, deleteAllNotificationController, loginController, registerController, authController, applyDoctorController, getAllNotificationController, getAllDoctorsController}
+
+const bookingAvailability = async(req,res)=>{
+    try {
+        const date = moment(req.body.date,"DD-MM-YYYY").toISOString()
+        const doctorId =req.body.doctorId
+
+        const appointment = await appointmentModel.find({doctorId,date})
+        if(appointment.length=0){
+            return res.status(200).send({
+                success:true,
+                message:"Sorry Appointent not available on selected day"
+            })
+        }else{
+            return res.status(200).send({
+                success:true,
+                message:"Booking possible on the selected date"
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            error,
+            message:"Error in availability"
+        })
+    }
+}
+
+const userAppointmentController = async(req, res)=>{
+    try {
+        const appointment = await appointmentModel.find({userId: req.body.userId})
+        res.status(200).send({
+            success: true,
+            data: appointment,
+            message:"User Appointments fetched successfuly"
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            error,
+            message:"Error in user appointment",
+            success: false
+        })
+    }
+}
+module.exports = {userAppointmentController, bookingAvailability,bookAppointmentController, deleteAllNotificationController, loginController, registerController, authController, applyDoctorController, getAllNotificationController, getAllDoctorsController}
