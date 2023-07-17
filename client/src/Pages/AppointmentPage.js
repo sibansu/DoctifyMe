@@ -38,11 +38,12 @@ function AppointmentPage() {
       dispatch(showLoading())
       const res = await axios.post("/api/v1/user/book-appointment",
         {
-          doctorId: params.doctorId,
-          userId: user._id,
-          doctorInfo: doctors,
-          userInfo: user,
-          date: date
+          // doctorId: params.doctorId,
+          // userId: user._id,
+          // doctorInfo: doctors,
+          // userInfo: user,
+          // date: date
+
         },{
           headers:{
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -59,7 +60,9 @@ function AppointmentPage() {
       dispatch(hideLoading())
       console.log(error)
     }
+
   }
+
 
   const handleAvailabiliy = async()=>{
     try {
@@ -100,8 +103,6 @@ function AppointmentPage() {
               <h4>Fees {doctors.fees}</h4>
               <div className="d-flex flex-column w-50">
                 <DatePicker format="DD-MM-YYYY" onChange={(e) =>{setDate(moment(e).format("DD-MM-YYYY")); setAvailable(true);}}></DatePicker>
-                {/* <div className="btn bg-primary text-white mt-2" onClick={handleAvailabiliy}>Check availability</div> */}
-
                 {<div className="btn bg-success text-white mt-2" onClick={handleBooking}>Book now</div>}
               </div>
             </div>

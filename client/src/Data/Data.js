@@ -19,7 +19,6 @@ export const userMenu = [
         path: "/profile",
         icon: "fa-solid fa-user"
     },
-   
 ];
 
 export const adminMenu = [

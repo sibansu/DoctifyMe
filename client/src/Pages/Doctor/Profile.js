@@ -70,7 +70,7 @@ function Profile() {
                     {...doctor,
                     timings:[
                         moment(doctor.timings[0], "HH:mm"),
-                        moment(doctor.timings[1], "HH:mm")
+                        moment(doctor?.[1], "HH:mm")
                     ]}
                 }>
                 <h4 className="">Personal Details</h4>

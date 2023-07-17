@@ -26,6 +26,8 @@ function ProtectedRoute({children}) {
         <Navigate to='/login'></Navigate>
         localStorage.clear()
       }
+      // dispatch(showLoading())
+      // const res = await axios.post('/api/v1/user/getUserData')
     } catch (error) {
       dispatch(hideLoading())
       localStorage.clear()

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const doctorModel = require('../models/doctorModel')
 const appointmentModel = require('../models/appointmentMode')
-// import doctorModel from '../models/doctorModel'
+
 const moment = require("moment")
 const registerController = async (req, res) => {
     try {
