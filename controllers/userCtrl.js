@@ -220,6 +220,8 @@ const bookingAvailability = async(req,res)=>{
     }
 }
 
+
+
 const userAppointmentController = async(req, res)=>{
     try {
         const appointment = await appointmentModel.find({userId: req.body.userId})
