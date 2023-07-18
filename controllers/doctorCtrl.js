@@ -54,4 +54,7 @@ const getADoctorCrontroller= async(req, res)=>{
         })
     }
 }
+
+
+
 module.exports = {getDoctorInfoController, updateProfileController, getADoctorCrontroller}
