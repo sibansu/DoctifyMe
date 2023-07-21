@@ -55,6 +55,22 @@ const getADoctorCrontroller= async(req, res)=>{
     }
 }
 
-
-
-module.exports = {getDoctorInfoController, updateProfileController, getADoctorCrontroller}
+const doctorAppointmentsController = async(req, res)=>{
+    try {
+        const doctor = await doctorModel.findOne({userId: req.body.userId})
+        const appointments = await doctoModel.find({doctorId: req.body.doctorId})
+        res.status(200).send({
+            success: true,
+            message:"Doctor appointment fetched successfuly",
+            data: appointments
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            message:"Error in doctor appointments",
+            error,
+            success: false
+        })
+    }
+}
+module.exports = {doctorAppointmentsController, getDoctorInfoController, updateProfileController, getADoctorCrontroller}
