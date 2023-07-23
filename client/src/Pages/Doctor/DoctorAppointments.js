@@ -33,24 +33,24 @@ function DoctorAppointments() {
             title: "ID",
             dataIndex: "_id"
         },
-        // {
-        //   title: 'Name',
-        //   dataIndex: 'name',
-        //   render: (text, record) => (
-        //     <span>
-        //       {record.doctorId.firstName} {record.doctorId.lastName}
-        //     </span>
-        //   )
-        // },
-        // {
-        //   title: 'Phone',
-        //   dataIndex: 'phone',
-        //   render: (text, record) => (
-        //     <span>
-        //       {record.doctorId.phone}
-        //     </span>
-        //   )
-        // },
+        {
+          title: 'Name',
+          dataIndex: 'name',
+          render: (text, record) => (
+            <span>
+              {record?.firstName} {record?.lastName}
+            </span>
+          )
+        },
+        {
+          title: 'Phone',
+          dataIndex: 'phone',
+          render: (text, record) => (
+            <span>
+              {record?.phone}
+            </span>
+          )
+        },
         {
             title: 'Date',
             dataIndex: 'date',
@@ -84,7 +84,7 @@ function DoctorAppointments() {
             <h3>Doctor appointments list</h3>
             <Table columns={columns} dataSource={appointments}></Table>
         </Layout>
-
+        
     )
 }
 
