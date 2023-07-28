@@ -24,7 +24,7 @@ function DoctorAppointments() {
             console.log(error)
         }
     }
-
+    
     useEffect(() => {
         getAppointments()
     }, [])
@@ -84,7 +84,6 @@ function DoctorAppointments() {
             <h3>Doctor appointments list</h3>
             <Table columns={columns} dataSource={appointments}></Table>
         </Layout>
-        
     )
 }
 
