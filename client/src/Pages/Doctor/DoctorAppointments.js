@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../Components/Layout'
-import { Table } from 'antd'
+import { Table, message } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 
 function DoctorAppointments() {
-    const handleStatus = () => {
-
+    const handleStatus = async(record, status) => {
+        try {
+            const res = await axios.post('/api/v1/doctor/update-status',{
+                appointmentId: record._id,
+                status
+            },
+            {
+                headers:{
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            if(res.data.success){
+                message.success(res.data.message)
+                getAppointments()
+            }
+        } catch (error) {
+            console.log(error)
+            message.error("Something went wrong")
+        }
     }
 
     const [appointments, setAppointments] = useState([])
