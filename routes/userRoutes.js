@@ -25,4 +25,5 @@ router.post('/book-appointment', authMiddleware, bookAppointmentController)
 
 router.post('/booking-availability', authMiddleware, bookingAvailability)
 
+
 module.exports = router

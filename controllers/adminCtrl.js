@@ -67,5 +67,25 @@ const changeAccountStatusController=async(req, res)=>{
         })
     }
 }
+const blockUserController=async(req, res)=>{
+    try {
+        // const user = 
+        const {userId} = req.body
+        const user = await userModel.deleteOne({_id: userId})
+        // await user?.save()
 
-module.exports = {changeAccountStatusController,getAllDoctorsController, getAllUsersController}
+        res.status(201).send({
+            success: true,
+            message: "User blocked and deleted",
+            data: doctor
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            error,
+            message:"Could not update user status",
+            success: false
+        })
+    }
+}
+module.exports = {blockUserController,changeAccountStatusController,getAllDoctorsController, getAllUsersController}

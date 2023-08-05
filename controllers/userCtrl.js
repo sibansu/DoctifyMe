@@ -239,4 +239,5 @@ const userAppointmentController = async(req, res)=>{
         })
     }
 }
+
 module.exports = {userAppointmentController, bookingAvailability,bookAppointmentController, deleteAllNotificationController, loginController, registerController, authController, applyDoctorController, getAllNotificationController, getAllDoctorsController}

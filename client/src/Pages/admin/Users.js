@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Layout from '../../Components/Layout'
 import axios from 'axios'
-import { Table } from 'antd'
+import { Table, message } from 'antd'
 function Users() {
   const [users, setUsers] = useState([])
 
@@ -23,6 +23,25 @@ function Users() {
     getUsers()
   }, [])
   
+  const hadndleOnClick=async (record)=>{
+    try {
+      const res = await axios.post('/api/v1/admin/block-user',
+      {userId: record.userId},
+      {
+          headers:{
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+      })
+      if(res.data.success){
+          message.success(res.data.message)
+          window.location.reload()
+      }
+  } catch (error) {
+      console.log(error);
+      message.error("Something went wrong")
+  }
+  }
+
   //antd tables.
   const columns = [
     {
