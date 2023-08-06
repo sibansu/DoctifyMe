@@ -43,7 +43,7 @@ const changeAccountStatusController=async(req, res)=>{
         const {doctorId, status} = req.body
         const doctor = await doctorModel.findByIdAndUpdate(doctorId, {status})
         const user  = await userModel.findOne({_id: doctor.userId}) 
-        const notification = user.notification  
+        const notification = user?.notification  
         notification.push({
             type:'doctor-account-request-updated',
             message: `Your doctor request is ${status}`,

@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     seennotification:{
         type: Array,
         default: []
+    },
+    changeStatus:{
+        type: Boolean,
+        required: false
     }
 })
 
