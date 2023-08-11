@@ -3,8 +3,45 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const doctorModel = require('../models/doctorModel')
 const appointmentModel = require('../models/appointmentMode')
+const nodemailer = require('nodemailer')
+
 
 const moment = require("moment")
+
+//Verifying user email
+
+const verifyEmail = async(email, id)=>{
+    try {
+        const transporter=nodemailer.createTransport({
+            host:"smtp.gmail.com",
+            port:9000,
+            secure:false,
+            requireTLS: true,
+            auth:{
+                user:"mishrasibansu16@gmail.com",
+                pass: process.env.SMTP_KEY
+            }
+        })
+
+        const mailOptions={
+            from: 'mishrasibansu16@gmail.com',
+            to: email,
+            subject: "Email verification for DoctifyMe",
+            html:`<p>Hi user!! please click here to verify your email <a href='http://localhost:3000/signup/verify?id=${id}'></a></p>`
+        }
+
+        transporter.sendMail(mailOptions, function(error,info){
+            if(error){
+                console.log(error)
+            }else{
+                console.log(`email has been sent:- ${info.response}`)
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const registerController = async (req, res) => {
     try {
         const existing = await userModel.findOne({ email: req.body.email })
@@ -17,11 +54,25 @@ const registerController = async (req, res) => {
         req.body.password = hashedPassword
         const newUser = new userModel(req.body)
         await newUser.save()
+
+        verifyEmail(req.body.email, newUser._id)
         res.status(201).send({ message: 'Registered successfuly', success: true })
 
     } catch (error) {
         console.log(error);
         res.status(500).send({ success: false, message: `Signup controller error: ${error.message}` })
+    }
+}
+
+const emailVerification = async(req, res)=>{
+    try {
+        const updateInfo= await userModel.updateOne({_id:req.query.id},{$set: {is_verified: 1}})
+
+        console.log(updateInfo)
+        res.render('email-verified')
+
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -123,7 +174,7 @@ const getAllNotificationController = async(req, res)=>{
         })
     }
 }
-
+ 
 const deleteAllNotificationController = async(req, res)=>{
     try {
         const user = await userModel.findOne({_id: req.body.userId})
@@ -192,6 +243,8 @@ const bookAppointmentController = async(req,res)=>{
         })
     }
 }
+
+
 
 const bookingAvailability = async(req,res)=>{
     try {
