@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer')
 
 const moment = require("moment")
 
-//Verifying user email
+// Verifying user email
 
 const verifyEmail = async(email, id)=>{
     try {
@@ -29,7 +29,7 @@ const verifyEmail = async(email, id)=>{
             subject: "Email verification for DoctifyMe",
             html:`<p>Hi user!! please click here to verify your email <a href='http://localhost:3000/signup/verify?id=${id}'></a></p>`
         }
-
+        
         transporter.sendMail(mailOptions, function(error,info){
             if(error){
                 console.log(error)
@@ -124,7 +124,6 @@ const authController = async (req, res) => {
         }
     }
 }
-
 const applyDoctorController = async(req, res) =>{
     try {
         const newDoctor = await doctorModel({...req.body, status:'Pending'})
@@ -199,15 +198,15 @@ const deleteAllNotificationController = async(req, res)=>{
 }
 
 const getAllDoctorsController = async(req, res)=>{
-    try {
+    try{
         const doctors = await doctorModel.find({status:"Approved"})
         res.status(200).send({
             success: true,
             data: doctors,
             message: "Doctors details fetched successfuly"
         })
-    } catch (error) {
-        console.log(eroor);
+    }catch (error) {
+        console.log(error);
         res.status(500).send({
             success: false,
             error,
@@ -215,6 +214,7 @@ const getAllDoctorsController = async(req, res)=>{
         })
     }
 }
+
 
 const bookAppointmentController = async(req,res)=>{
     try {
@@ -244,8 +244,6 @@ const bookAppointmentController = async(req,res)=>{
     }
 }
 
-
-
 const bookingAvailability = async(req,res)=>{
     try {
         const date = moment(req.body.date,"DD-MM-YYYY").toISOString()
@@ -273,8 +271,6 @@ const bookingAvailability = async(req,res)=>{
     }
 }
 
-
-
 const userAppointmentController = async(req, res)=>{
     try {
         const appointment = await appointmentModel.find({userId: req.body.userId})
@@ -293,4 +289,4 @@ const userAppointmentController = async(req, res)=>{
     }
 }
 
-module.exports = {userAppointmentController, bookingAvailability,bookAppointmentController, deleteAllNotificationController, loginController, registerController, authController, applyDoctorController, getAllNotificationController, getAllDoctorsController}
+module.exports = {emailVerification, userAppointmentController, bookingAvailability,bookAppointmentController, deleteAllNotificationController, loginController, registerController, authController, applyDoctorController, getAllNotificationController, getAllDoctorsController}

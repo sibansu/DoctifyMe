@@ -19,7 +19,6 @@ const getAllUsersController = async(req, res)=>{
     }    
 }
 
-
 const getAllDoctorsController = async(req, res)=>{
     try {
         const doctors= await doctorModel.find({})
@@ -79,6 +78,7 @@ const blockUserController=async(req, res)=>{
             message: "User blocked and deleted",
             data: doctor
         })
+        
     } catch (error) {
         console.log(error)
         res.status(500).send({
@@ -88,4 +88,7 @@ const blockUserController=async(req, res)=>{
         })
     }
 }
+
+
+
 module.exports = {blockUserController,changeAccountStatusController,getAllDoctorsController, getAllUsersController}

@@ -21,17 +21,16 @@ function Doctors() {
         }
     }
 
-    const handleAccountStatus=async(record, status)=>{
+    const handleAccountStatus = async (record, status) => {
         try {
             const res = await axios.post('/api/v1/admin/changeAccountStatus',
-            {doctorId: record._id, userId: record.userId, status: status},
-            {
-                headers:{
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-
-            })
-            if(res.data.success){
+                { doctorId: record._id, userId: record.userId, status: status },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+            if (res.data.success) {
                 message.success(res.data.message)
                 window.location.reload()
             }
@@ -71,12 +70,13 @@ function Doctors() {
             render: (text, record) => (
                 <div className='d-flex'>
                     {
-                        record.status === 'Pending' ? (<button className='btn btn-success' onClick={()=>handleAccountStatus(record, "Approved")}>Approve</button>) : (<button className='btn btn-danger' onClick={()=>handleAccountStatus(record,"Pending")}>Reject</button>)
+                        record.status === 'pending' ? (<button className='btn btn-success' onClick={() => handleAccountStatus(record, "Approved")}>Approve</button>) : (<button className='btn btn-danger' onClick={() => handleAccountStatus(record, "Pending")}>Reject</button>)
                     }
                 </div>
             )
         }
     ]
+
     return (
         <Layout>
             <h1 className='text-center m-5'>Doctors</h1>

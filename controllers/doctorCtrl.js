@@ -101,4 +101,5 @@ const updateStatusController = async(req, res)=>{
         })
     }
 }
+
 module.exports = {updateStatusController, doctorAppointmentsController, getDoctorInfoController, updateProfileController, getADoctorCrontroller}
