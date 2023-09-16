@@ -1,16 +1,36 @@
-.form-container{
+.login-container {
+    display: flex;
+    background-color: #6a1067; /* Some shade of pink */
+    height: 100vh;
+  }
+  
+  .form-container {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-}
-.register-form{
-    border:1px solid gray;
+  }
+  
+  .register-form {
+    border: 1px solid rgb(167, 167, 167);
     padding: 30px;
-    width: 40%;
-}
-input{
+    width: 80%; /* Adjust the width as needed */
+    background-color: white; /* White background for the form */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+  }
+  
+  .input {
     width: 100%;
     padding: 5px;
-    border-radius: 10px;
-}
+    border-radius: 5px; /* Reduced border-radius for a softer look */
+  }
+  
+  .image-container {
+    flex: 1;
+    background-image: url('login_pic.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    /* Add any other styles you want for the image container */
+  }
+  

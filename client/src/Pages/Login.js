@@ -28,21 +28,26 @@ const Login = () => {
         }
     }
   return (
-    <>
-    <div className="form-container">
-        <Form layout='vertical' onFinish={onFinishHandler} className='register-form'>
-            <h3 className='text-center'>Login form</h3>
-            <Form.Item name="email" label='Email'>
-                <input type="text" required />
-            </Form.Item>
-            <Form.Item name="password" label='Password'>
-                <input type="password" required />
-            </Form.Item>
-            <Link to='/signup' className='m-2'>Click here if new user</Link>
-            <button className="btn btn-primary" type='submit'>Login</button>
+    <div className="login-container">
+      <div className="image-container"></div>
+      <div className="form-container">
+        <Form layout="vertical" onFinish={onFinishHandler} className="register-form">
+          <h3 className="text-center">Login form</h3>
+          <Form.Item name="email" label="Email">
+            <input type="text" required />
+          </Form.Item>
+          <Form.Item name="password" label="Password">
+            <input type="password" required />
+          </Form.Item>
+          <Link to="/signup" className="m-2">
+            Click here if new user
+          </Link>
+          <button className="btn btn-primary" type="submit">
+            Login
+          </button>
         </Form>
+      </div>
     </div>
-</>
   )
 }
 
