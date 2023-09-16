@@ -20,7 +20,7 @@ function Doctors() {
             console.log(error);
         }
     }
-
+    
     const handleAccountStatus = async (record, status) => {
         try {
             const res = await axios.post('/api/v1/admin/changeAccountStatus',

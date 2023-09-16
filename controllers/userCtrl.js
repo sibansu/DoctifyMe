@@ -8,8 +8,6 @@ const nodemailer = require('nodemailer')
 
 const moment = require("moment")
 
-// Verifying user email
-
 const verifyEmail = async(email, id)=>{
     try {
         const transporter=nodemailer.createTransport({
