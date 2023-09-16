@@ -13,8 +13,9 @@ function AppointmentPage() {
   const [doctors, setDoctors] = useState([])
   const [date, setDate] = useState()
   const [available, setAvailable] = useState(false)
-
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  
   const getUserData = async () => {
     try {
       const res = await axios.post('/api/v1/doctor/getADoctor', { doctorId: params.doctorId }, {
@@ -24,14 +25,12 @@ function AppointmentPage() {
       })
       if (res.data.success) {
         setDoctors(res.data.data)
-
       }
     } catch (error) {
       console.log(error);
     }
-  }  
+  } 
 
-  
   const handleBooking = async () => {
     try {
       setAvailable(true);
