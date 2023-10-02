@@ -16,7 +16,6 @@ const ListDocs = ({ doctor }) => {
           <p><b>Experience:</b> {doctor?.experience}</p>
           <p><b>Fees for each consultation:</b> {doctor?.fees}</p>
           <p><b>Timings:</b> {doctor?.timings[0]?.substring(11, 16)} to {doctor?.timings[1]?.substring(11, 16)}</p>
-          <p><b>Timings</b> {doctor?.timings[0]?.substring(11, 10)} to {doctor?.timings[1]?.substring(11, 16)}</p>
         </div>
       </div>
     </div>
