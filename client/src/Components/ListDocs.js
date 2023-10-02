@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ListDocs.css'
 const ListDocs = ({ doctor }) => {
-
+  
   const navigate = useNavigate();
 
   return (
