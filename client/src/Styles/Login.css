@@ -9,18 +9,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
   }
   
   .register-form {
     border: 1px solid rgb(167, 167, 167);
     padding: 30px;
-    width: 80%; /* Adjust the width as needed */
+    width: 50%; /* Adjust the width as needed */
     background-color: white; /* White background for the form */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    box-shadow: 0 0 10px rgb(250, 226, 255); /* Add a subtle shadow for depth */
   }
   
-  .input {
+  input {
     width: 100%;
     padding: 5px;
     border-radius: 5px; /* Reduced border-radius for a softer look */
@@ -32,5 +33,12 @@
     background-size: cover;
     background-position: center;
     /* Add any other styles you want for the image container */
+  }
+  .btn{
+    margin-left: 10px;
+    padding: 3px 18px ;
+    background-color: rgb(100, 100, 209);
+    color: white;
+    border-radius: 10px;
   }
   
