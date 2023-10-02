@@ -11,6 +11,9 @@ const ListDocs = ({ doctor }) => {
         <div className="card-header">
           Dr. {doctor?.firstName} {doctor?.lastName}
         </div>
+        <div>
+          
+        </div>
         <div className="card-body">
           <p><b>Specialization:</b> {doctor?.specialization}</p>
           <p><b>Experience:</b> {doctor?.experience}</p>
