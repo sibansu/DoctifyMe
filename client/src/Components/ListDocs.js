@@ -2,9 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ListDocs.css'
 const ListDocs = ({ doctor }) => {
-  
-  const navigate = useNavigate();
-
+  const navigate = useNavigate(); 
   return (
     <div className='p-3'>
       <div className="card shadow-sm" style={{ cursor: "pointer" }} onClick={() => navigate(`/doctor/book-appointment/${doctor._id}`)}>
@@ -12,7 +10,7 @@ const ListDocs = ({ doctor }) => {
           Dr. {doctor?.firstName} {doctor?.lastName}
         </div>
         <div>
-          
+
         </div>
         <div className="card-body">
           <p><b>Specialization:</b> {doctor?.specialization}</p>
