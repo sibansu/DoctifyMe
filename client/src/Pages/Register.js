@@ -26,6 +26,7 @@ const Register = () => {
             message.error("Something went wrong")
         }
     }
+    
     return (
         <>
             <div className="form-container">

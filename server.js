@@ -37,5 +37,5 @@ const port = process.env.PORT || 4000
 //listen port
 
 app.listen(port, ()=>{
-    console.log(`listenting at port ${port} with mode ${process.env.NODE_MODE}`);
+    console.log(`listenting at port ${port} with mode`);
 })
